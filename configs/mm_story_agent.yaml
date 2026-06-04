@@ -1,0 +1,142 @@
+# Define common variables at the top
+sample_rate: &sample_rate 16000
+image_height: &image_height 512
+image_width: &image_width 512
+
+story_dir: &story_dir generated_stories/example
+
+story_writer:
+    tool: qa_outline_story_writer
+    cfg:
+        max_conv_turns: 3
+        num_outline: 4
+        temperature: 0.5
+        llm: "openai"
+        model_name: "gpt-4.1-2025-04-14"
+    params:
+        story_topic: "Two clever crows outwit a deadly cobra with the help of a jackal"
+        main_role: "The wise jackal"
+        scene: "The cobra rises from the hollow, only to be beaten by palace guards retrieving the stolen necklace"
+        video_style: "youtube shorts"
+        base_story: |-
+                Once upon a time, two crows—a husband and wife—lived in a nest on a big banyan tree. But they had a terrifying neighbor: a black cobra that lived in the hollow of the same tree.
+
+                Every time the crows laid eggs, the cobra slithered up and ate their chicks. Helpless and heartbroken, the crows sought advice from a wise jackal living nearby.
+
+                "O Friend," they said, "this cobra is destroying our family. How can we protect our young?"
+
+                The jackal replied, "Even the most dangerous enemies can be defeated with cleverness. Here's what you must do..."
+
+                He told them to fly into the royal capital, find something valuable lying around, and snatch it while the servants were watching. Then they should drop the item into the cobra's hollow. The humans, eager to retrieve the item, would handle the cobra themselves.
+
+                The crows followed the plan. At the palace lake, they saw royal women swimming, their gold necklaces left by the shore. The female crow swooped down and grabbed one. Flying slowly, she lured the palace guards to the banyan tree.
+
+                She dropped the necklace right at the cobra's hollow and perched nearby to make sure the humans saw.
+
+                The cobra slithered out, alarmed by the noise—only to be beaten by guards retrieving the stolen jewelry.
+
+                The wicked cobra was killed, and the crows lived peacefully ever after with their chicks—safe at last.
+
+                **The lesson: even a deadly enemy can be defeated with smart thinking and teamwork.**
+
+
+
+  
+# sound_generation:
+#     tool: audioldm2_t2a
+#     cfg:
+#         device: "cpu"
+#         num_turns: 3
+#         llm: "gemini"
+#         sample_rate: *sample_rate
+#     params:
+#         guidance_scale: 3.5
+#         seed: 0
+#         ddim_steps: 200
+#         n_candidate_per_text: 3
+
+speech_generation:
+    tool: ${tts_tool:-gtts}  # Default to gtts if not specified
+    cfg:
+        sample_rate: *sample_rate
+    params:
+        lang: "en"
+
+image_generation:
+    tool: story_diffusion_t2i
+    cfg:
+        device: "cpu"
+        num_turns: 3
+        llm: "openai"
+        model: "dall-e-3"  # Specify DALL-E model
+        height: 1024
+        width: 1024
+    params:
+        style_name: "Storybook"
+        quality: "standard"  # or "hd" for higher quality
+
+music_generation:
+    tool: musicgen_t2m
+    cfg:
+        device: "cpu"
+        llm_type: "gemini"
+        num_turns: 3
+        model_name: "facebook/musicgen-small"  # Using smaller model for low memory
+    params:
+        duration: 30
+
+video_compose:
+    tool: slideshow_video_compose
+    cfg:
+        {}
+    params:
+        height: *image_height
+        width: *image_width
+        story_dir: *story_dir
+        fps: 8
+        audio_sample_rate: *sample_rate
+        audio_codec: mp3
+        caption:
+            font: resources/font/msyh.ttf
+            # bg_color: LightGrey
+            fontsize: 32
+            color: white
+            # stroke_color: white
+            # stroke_width: 0.5
+            max_length: 50
+        slideshow_effect:
+            bg_speech_ratio: 0.6
+            sound_volume: 0.5
+            music_volume: 0.3
+            fade_duration: 0.1
+            slide_duration: 0.1
+            zoom_speed: 0.5
+            move_ratio: 0.9
+
+video_composition:
+    tool: slideshow_video_compose
+    cfg:
+        fps: 10
+        audio_sample_rate: *sample_rate
+        audio_codec: "mp3"
+        fade_duration: 0.1
+        slide_duration: 0.1
+        zoom_speed: 0.5
+        move_ratio: 0.95
+        sound_volume: 0.2
+        music_volume: 0.15
+        bg_speech_ratio: 0.4
+        caption_config:
+            area_height: 100
+            max_length: 100
+            fontsize: 24
+            color: 'white'
+            font: 'Arial'
+    params: {}
+
+# Add these settings for lower resource usage
+system:
+    low_memory_mode: true
+    batch_size: 1
+    max_parallel_processes: 1
+    

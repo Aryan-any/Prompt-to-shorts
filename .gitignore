@@ -1,0 +1,20 @@
+# Keys and credentials
+allinai_service_account.json
+cosmic-quarter-*.json
+credentials_oauth_youtube.json
+token_*.json
+ai_stories.json
+
+# Environment variables
+.env
+
+# Logs and outputs
+logs/
+*.csv
+output.*
+polished.srt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
