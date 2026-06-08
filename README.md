@@ -1,6 +1,6 @@
 # 🎬 MM-StoryAgent — Prompt to YouTube Shorts, Fully Automated
 
-> Give it a story idea. It writes the script, generates images, narrates it, scores it with music, cuts a vertical video, and uploads it to YouTube — all without you touching a single frame.
+> Give it a story idea. It writes the script, generates images, narrates it, scores it with music, cuts a vertical video, and uploads it to YouTube - all without you touching a single frame.
 
 <div align="center">
   <img src="./assets/framework.png" alt="MM-StoryAgent Framework" style="width: 85%;" />
@@ -23,7 +23,7 @@
 
 MM-StoryAgent is a multi-modal, multi-agent AI pipeline that transforms a raw story idea into a fully produced, narrated, and captioned YouTube Shorts video — and then uploads it directly to a YouTube channel. The system is built on top of the original research paper *"MM-StoryAgent: Immersive Narrated Storybook Video Generation with a Multi-Agent Paradigm across Text, Image and Audio"*, and this implementation extends it significantly with a production-grade automation layer: Google Sheets as a job queue, a Gradio control panel for batch operations, ElevenLabs for high-quality multilingual narration, Modal Labs for GPU-backed image and music inference, and a direct YouTube Data API upload pipeline.
 
-The architecture is broken into clearly separated specialist agents — a story writer, an image generator, a speech synthesizer, a sound designer, a music composer, and a video compositor — all coordinated by a central `MMStoryAgent` orchestrator. Each agent is independently swappable via a YAML config file and a lightweight tool registry pattern. This means you can plug in your own image model, swap the TTS provider, or change the music backend without touching the core pipeline logic. The result is a system that is both research-friendly (modular, inspectable) and production-ready (automated, scalable, multi-language).
+The architecture is broken into clearly separated specialist agents - a story writer, an image generator, a speech synthesizer, a sound designer, a music composer, and a video compositor - all coordinated by a central `MMStoryAgent` orchestrator. Each agent is independently swappable via a YAML config file and a lightweight tool registry pattern. This means you can plug in your own image model, swap the TTS provider, or change the music backend without touching the core pipeline logic. The result is a system that is both research-friendly (modular, inspectable) and production-ready (automated, scalable, multi-language).
 
 ---
 
@@ -599,7 +599,7 @@ The pipeline's story writing quality was benchmarked against direct LLM promptin
 | **All Topics** | Direct | 4.02 | 4.55 | 4.84 | 4.47 |
 | | **Story Agent** | **4.44** | **4.63** | **4.87** | **4.65** |
 
-The multi-turn QA dialogue loop consistently outperforms single-shot prompting, especially on Attractiveness — the dimension most affected by narrative creativity and structure.
+The multi-turn QA dialogue loop consistently outperforms single-shot prompting, especially on Attractiveness - the dimension most affected by narrative creativity and structure.
 
 ---
 
